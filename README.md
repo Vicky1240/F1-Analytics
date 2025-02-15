@@ -1,39 +1,99 @@
 # Formula 1 Data Analysis with DBMS and Power BI Dashboard
-## Project Overview
+
+# F1 Analytics Project
+
+## Overview
 This project utilizes a relational database management system (DBMS) to manage and analyze Formula 1 racing data. The data is loaded into SQL tables from various CSV files and then analyzed using SQL queries. A Power BI dashboard is used to visualize the results, providing insights into various aspects of Formula 1 races, such as driver standings, lap times, and race results.
 
-## Setup Instructions
+## Directory Structure
 
- #### Clone the repository
 ```bash
-https://github.com/mety0r/F1-Analytics.git
+F1-Analytics/
+│── dataset/                   # Raw datasets in CSV format
+│   ├── circuits.csv
+│   ├── constructorResults.csv
+│   ├── constructors.csv
+│   ├── constructorStandings.csv
+│   ├── drivers.csv
+│   ├── driverStandings.csv
+│   ├── lapTimes.csv
+│   ├── pitStops.csv
+│   ├── qualifying.csv
+│   ├── races.csv
+│   ├── results.csv
+│   ├── seasons.csv
+│   ├── sprint_results.csv
+│   ├── status.csv
+│── Snapshots/                 # Images and diagrams
+│   ├── ERDiag.jpg             # Entity-Relationship Diagram
+│   ├── F1-Dashboard.png       # Power BI Dashboard screenshot
+│── SQLQuery/                  # SQL scripts for data analysis
+│   ├── Analysis.sql           # SQL queries for insights
+│   ├── script.sql             # SQL script for creating tables
+│── .env                       # Environment configuration (ignored in Git)
+│── .gitignore                 # Files to be ignored by Git
+│── F1_Dashboard.pbix          # Power BI Dashboard file
+│── README.md                  # Project documentation (this file)
+
 ```
 
-#### Database Setup:
 
-- Ensure you have a MySQL database installed.
-- Run the provided SQL scripts to create and populate the tables.
-- The CSV files must be available locally on your system to load the data into the respective tables.
-```bash
-  CREATE DATABASE formula1;
-USE formula1;
--- Run the SQL commands to create tables and load data from CSV files.
-```
+## Dataset Description
+The dataset consists of multiple CSV files that provide detailed information about Formula 1 races from various seasons. Below is a brief description of key datasets:
 
-#### Loading CSV Data
-- Modify the file paths in the LOAD DATA statements to match the location of the CSV files on your system.
-```bash
-   LOAD DATA LOCAL INFILE 'C:/path/to/circuits.csv'
-INTO TABLE circuits
-FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
-```
-#### Power BI Setup:
+- **`circuits.csv`** - Details about race circuits (location, country, lat/lon, etc.).
+- **`races.csv`** - Information about each race (date, circuit, year, etc.).
+- **`drivers.csv`** - Driver details (name, nationality, birth date, etc.).
+- **`constructors.csv`** - Constructor (team) details.
+- **`results.csv`** - Race results, including finishing position, points, and status.
+- **`qualifying.csv`** - Qualifying session times (Q1, Q2, Q3).
+- **`pitStops.csv`** - Pit stop data per race.
+- **`lapTimes.csv`** - Lap times per race and driver.
+- **`driverStandings.csv`** - Driver standings across races.
+- **`constructorStandings.csv`** - Constructor standings over races.
+- **`constructorResults.csv`** - Constructor results in races.
+- **`status.csv`** - Status of a race finish (finished, retired, etc.).
 
-- Import the SQL data into Power BI.
-- Use the pre-designed dashboard template (if available) to visualize the data.
- 
-## Snapshots
-<img src="Snapshots/ss1.jpg" width="100%">
-<img src="Snapshots/ss2.jpg" width="100%">
+## Database Schema
+The project follows a relational database schema, illustrated in the **ERDiag.jpg** file. Key relationships include:
+- **`races`** table linking with **`circuits`**, **`results`**, **`qualifying`**, and **`pitStops`**.
+- **`results`** table linking drivers, constructors, and race status.
+- **`driverStandings`** and **`constructorStandings`** tracking seasonal progress.
+
+<img src="Snapshots/ERDiag.jpg" width="100%">
+
+## SQL Analysis
+The **SQLQuery/** folder contains scripts used for data processing and querying:
+- **`script.sql`** - Creates tables for loading data.
+- **`Analysis.sql`** - Executes analytical queries to extract insights.
+
+## Data Upload Notebook
+The **`data_upload.ipynb`** notebook automates the process of loading CSV files into a database using Python.
+
+## Dashboard
+The Power BI Dashboard ([`F1_Dashboard.pbix`](https://app.powerbi.com/reportEmbed?reportId=03985f21-0a6c-4130-a8af-7e45cde70ee3&autoAuth=true&ctid=a8eec281-aaa3-4dae-ac9b-9a398b9215e7)) visualizes key insights such as:
+- **Race wins by decade and constructor**
+- **Race performance by circuit and continent**
+- **Impact of starting position on race wins**
+- **Driver and team statistics**
+
+<img src="Snapshots/F1-Dashboard.png" width="100%">
+
+## How to Use
+
+1. **Clone the repository**
+  ```bash
+  https://github.com/Vicky1240/F1-Analytics.git
+  ```
+
+2. **Database Setup**
+   - Run **`script.sql`** to create the database schema.
+   - Load data from CSV files using the **`data_upload.ipynb`**.
+
+3. **Data Analysis**
+   - Use **`Analysis.sql`** to generate insights.
+
+## Dependencies
+- **SQL Database** (MySQL/PostgreSQL)
+- **Python** (for data upload)
+- **Power BI** (for visualization)

@@ -86,6 +86,16 @@ The Power BI Dashboard ([`F1_Dashboard.pbix`](https://app.powerbi.com/reportEmbe
   https://github.com/Vicky1240/F1-Analytics.git
   ```
 
+2. **Configure Environment Variables**
+   - Create a `.env` file in the root directory with following variables:
+   ```env
+   # MySQL connection details
+   MYSQL_USERNAME = <your-username>
+   MYSQL_PASSWORD = <your-password>
+   MYSQL_HOST = <your-host>
+   MYSQL_DATABASE = <your-database>
+   ```
+
 2. **Database Setup**
    - Run **`script.sql`** to create the database schema.
    - Load data from CSV files using the **`data_upload.ipynb`**.
